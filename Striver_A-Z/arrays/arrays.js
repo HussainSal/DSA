@@ -81,9 +81,19 @@ function rotatedSorted(nums){
 
 
 /*
-    Rotate array
+Rotate array
 
 Input: nums = [1,2,3,4,5,6,7], k = 3
+
+reversed :- [7,6,5,4,3,2,1]
+
+reversal of k-1, i.e 2
+[5,6,7,4,3,2,1]
+
+reversal of k  i.e 3
+
+[5,6,7,1,2,3,4]
+
 Output: [5,6,7,1,2,3,4]
 
 Approach :- 
@@ -91,10 +101,6 @@ Approach :-
 go till kth index , then cut an array from there and create a subarray
 
 */
-
-
-
-
 
 
 function rotate(nums, k){
