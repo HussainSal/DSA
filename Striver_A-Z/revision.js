@@ -67,18 +67,73 @@ Output: [1,3,12,0,0]
 
 */
 
-// function moveZeroes (nums){
+function moveZeroes (nums){
+    // counter for non zero elements
+    let j = 0;
+    for(let i =0; i< nums.length; i++){
+     
+        if(nums[i] != 0 ){
+            nums[j] = nums[i];
+            j++
+        }
+    }
+
+    // put 0 for remaining places
+    while(j < nums.length){
+        nums[j] = 0;
+        j++;
+    }
+
+    return nums;
+
+}
 
 
-//     console.log(nums,"NUMSSSS");
+// console.log(moveZeroes([0,1,0,3,12]),"ZEROESSSS")
 
-//     let j = 0;
-//     for(let i = 1; i < nums.length; i++){
+/*
+ Max cons one
+ [1,1,0,1,1,1]
 
-//         if(nums[i] )
 
-//     }
 
-// }
+*/
 
-console.log(moveZeroes([0,1,0,3,12]),"ZEROESSSS")
+function maxConsOnes (nums){
+
+    let maxCount= 0;
+    let temCount= 0;
+
+    for(let i =0; i < nums.length; i++){
+
+        if(nums[i] == 1){
+            temCount ++
+            console.log('HERE',i,temCount)
+
+        }else{
+            if(temCount > maxCount){
+                maxCount = temCount;
+            }
+            temCount = 0;
+        }
+    }
+
+    if(temCount > maxCount){
+        maxCount = temCount;
+    }
+
+    return maxCount 
+}
+
+
+
+// console.log(maxConsOnes( [1,1,0,1,1,1]),"MAX_CONS_ONES")
+
+/* 
+    Longest Sub-Array with Sum K
+
+*/
+
+function longestSubarray(arr,k){
+    
+}
