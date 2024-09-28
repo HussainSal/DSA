@@ -641,116 +641,96 @@ arr[] = {10, 5, 2, 7, 1, 9}, k = 15 , total = 34
 Output : 4
 Explanation:  {5, 2, 7, 1}
 
-the reason why we have reduced 1 from sum, is because it does not include the starting index
+Step-by-Step Iteration
+Initialization:
 
-j = 4 [pointing to 1 at 4th index]
-i = 5 = [pointing to 5 at 1st index]
-
-4-1 = 3 , but the subarray has 4 numbers, [5,2,7,1] . so that's why we add 1.
-
-
-Approach 2 :- Optimized approach using back enginering
-we will create a hshmap, and store the sum - k = remaining , so if at any point remaining exist. from that index to ith we can have our ans
+sum = 0
+maxlength = 0
+hashMap = {}
+Iterate through the array:
 
 
-[10, 5, 2, 7, 1, 9] , k =15
+i = 0: arr[0] = 10
+sum = sum + arr[0] = 0 + 10 = 10
+Check: if (10 == 15) → False
+Update hashMap: hashMap = {10: 0}
 
-1st iteration :- 
+i = 1: arr[1] = 5
+sum = sum + arr[1] = 10 + 5 = 15
+Check: if (15 == 15) → True
+Update maxlength: maxlength = i + 1 = 1 + 1 = 2
+Update hashMap: hashMap = {10: 0, 15: 1}
 
-remaining = -5  [10 - 15]
+i = 2: arr[2] = 2
+sum = sum + arr[2] = 15 + 2 = 17
+Check: if (17 == 15) → False
+Calculate remaining = sum - k = 17 - 15 = 2
+Check if hashMap[2] exists → False
+Update hashMap: hashMap = {10: 0, 15: 1, 17: 2}
 
-{10:0}
+i = 3: arr[3] = 7
+sum = sum + arr[3] = 17 + 7 = 24
+Check: if (24 == 15) → False
+Calculate remaining = sum - k = 24 - 15 = 9
+Check if hashMap[9] exists → False
+Update hashMap: hashMap = {10: 0, 15: 1, 17: 2, 24: 3}
 
-2nd iteration :- 
+i = 4: arr[4] = 1
+sum = sum + arr[4] = 24 + 1 = 25
+Check: if (25 == 15) → False
+Calculate remaining = sum - k = 25 - 15 = 10
+Check if hashMap[10] exists → True (it does, at index 0)
+Calculate tempLength = i - hashMap[10] = 4 - 0 = 4
+Update maxlength: maxlength = Math.max(maxlength, tempLength) = Math.max(2, 4) = 4
+Update hashMap: hashMap = {10: 0, 15: 1, 17: 2, 24: 3, 25: 4}
 
-remaining = 0 [15 - 15]
+i = 5: arr[5] = 9
+sum = sum + arr[5] = 25 + 9 = 34
+Check: if (34 == 15) → False
+Calculate remaining = sum - k = 34 - 15 = 19
+Check if hashMap[19] exists → False
+Update hashMap: hashMap = {10: 0, 15: 1, 17: 2, 24: 3, 25: 4, 34: 5}
 
-{10:0,15:1 }
-
-3rd iteration :- 
-
- remaining = 2, [17 - 15 ]
-                                      15  2  = 17 ,  
- there is a potential sub array with index :-  [10, 5, 2]
-
-{10:0, 15:1, 17:2 }
-
-4th iteration :- 
-
-remaining = 9  [24 - 15]
-check if remaining is present in hashmap, and add sum init.
-
-so, 9 is not present in our hashmap so we move on and add 24
-
-{10:0, 15:1, 17:2, 24:3 }
-
-5th iteration :- 
-
-remaining = 10 [25 - 15]
-check if it is present in hashmap, if not then add sum and move on
-
-so 10 is present in hashmap, so the element 
-
-
-{10:0, 15:1, 17:2, 24:3, 25:4 }
-
-6th iteration :-  sum = 34,
-
- remaining :-  19 = [34 - 15]
-
-
-check if remaingin is present in our object 
-
-
-
-
-Again :- 
-
-
-
-
-
+Final Output
+After iterating through the array, the longest subarray that sums to 
+𝑘 = 15
+k=15 is [10, 5], which has a length of 2, and also the subarray [5, 2, 7, 1] can be considered for this
+k, and it has a length of 4 based on the cumulative sum at the end.
 
 */
 
 function longestSubarray(arr, k) {
-  console.log(arr,k,"ARRAY_AND_K");
+  console.log(arr, k, "ARRAY_AND_K");
 
-  const hashMap = {}
+  const hashMap = {};
   let sum = 0;
+
+  // for checking length of subarrays
   let maxlength = 0;
   let tempLength = 0;
 
-  for(let i = 0; i < arr.length; i++){
+  for (let i = 0; i < arr.length; i++) {
     sum += arr[i];
 
-    
-    if(sum == k){
-      maxlength = i +1
+    if (sum == k) {
+      maxlength = i + 1;
     }
-    console.log(sum, arr[i],"VALUESSS",k,maxlength)
 
-    let remaining = sum - k
+    let remaining = sum - k;
 
-    if(remaining){
+    if (remaining) {
       tempLength = i - hashMap[remaining];
-      console.log(remaining,"REMAINING",i,hashMap[remaining])
-      console.log(sum, arr[i],"VALUESSS",k,maxlength,tempLength)
-
+      console.log(remaining, "REMAINING", i, hashMap[remaining]);
+      console.log(sum, arr[i], "VALUESSS", k, maxlength, tempLength);
       maxlength = Math.max(maxlength, tempLength);
     }
 
-    if(!hashMap[sum]){
+    if (!hashMap[sum]) {
       hashMap[sum] = i;
     }
-
-
   }
 
-  return maxlength ? maxlength : 0
-
-
-
+  return maxlength ? maxlength : 0;
 }
 
 console.log(longestSubarray([10, 5, 2, 7, 1, 9], 15), "LONGEST_SUBARRAY");
@@ -790,7 +770,6 @@ function longSubarray(arr, k) {
 */
 
 function pascalTriangle(num) {
-
   const result = [];
 
   const firstRow = [1];

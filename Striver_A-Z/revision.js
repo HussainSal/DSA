@@ -132,8 +132,53 @@ function maxConsOnes (nums){
 /* 
     Longest Sub-Array with Sum K
 
+    eg :- 
+Input : n = 6, arr[] = {10, 5, 2, 7, 1, 9}, k = 15
+Output : 4
+Explanation: The sub-array is {5, 2, 7, 1}.
+
+
+
+
 */
 
-function longestSubarray(arr,k){
-    
-}
+function longestSubarray(nums, k) {
+  
+    let tempLength=0 ;
+    let maxLength=0;
+    let sum = 0;
+    const hashMap = {};
+
+
+    for(let i =0; i< nums.length; i++){
+        //sum
+        sum = sum + nums[i]
+
+        // initializing max length
+        if(sum === k){
+            maxLength = i+1;
+        }
+
+        // calculating remainging
+        let remaining = sum - k;
+
+        // if remaining exist
+        if(hashMap[remaining] != undefined){
+            tempLength = i - hashMap[remaining];
+            maxLength = Math.max(maxLength,tempLength); 
+        }
+
+        // assigning index of sum to hashmap if it is not present in hashmap 
+        if(!hashMap[sum]){
+           hashMap[sum] = i; 
+        }
+
+    }
+
+    return maxLength
+  
+
+  
+  }
+
+  console.log(longestSubarray([10, 5, 2, 7, 1, 9], 15))
