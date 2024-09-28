@@ -181,4 +181,4 @@ function longestSubarray(nums, k) {
   
   }
 
-  console.log(longestSubarray([10, 5, 2, 7, 1, 9], 15))
+//   console.log(longestSubarray([10, 5, 2, 7, 1, 9], 15))
