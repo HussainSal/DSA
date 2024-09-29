@@ -733,7 +733,7 @@ function longestSubarray(arr, k) {
   return maxlength ? maxlength : 0;
 }
 
-console.log(longestSubarray([10, 5, 2, 7, 1, 9], 15), "LONGEST_SUBARRAY");
+// console.log(longestSubarray([10, 5, 2, 7, 1, 9], 15), "LONGEST_SUBARRAY");
 
 function longSubarray(arr, k) {
   const preSump = {};
@@ -761,7 +761,6 @@ function longSubarray(arr, k) {
   }
 }
 
-// console.log(longSubarray([10, 5, 2, 7, 1, 9],15),"LONGS_SUB_ARR")
 
 /*
   Pascal's triangle
@@ -922,3 +921,98 @@ function threeSum(arr) {
 // console.log(threeSum([-1, 0, 1, 2, -1, -4]));
 
 // console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+
+
+/*
+  Problem :- twoSum
+
+Example 1:
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+
+approach :- 
+
+create a hashmap, and store the required num i.e complement :- target - current, then keeps on checking whether at any point current + complement = target, if so then 
+
+
+
+*/
+
+function twoSum (nums,target){
+  const hashMap = {}
+
+  for(let i = 0; i< nums.length;i++){
+
+    // finding complement 
+    const complement = target - nums[i];
+
+    if(complement in hashMap){
+      return [i,hashMap[complement]]
+    }
+
+    hashMap[nums[i]] = i;
+
+
+  }
+
+
+  // return [hashMap[0],hashMap[1]]
+
+  return []
+
+}
+
+// console.log(twoSum([3,3],6),"TWO_SUM")
+
+function maxSubArray (nums){
+
+  let maxGlobal = nums[0]; // Start with the first element
+  let maxCurrent = nums[0];
+  let left = 0, right = 0, tempLeft = 0; 
+
+  for(let i =1; i< nums.length;i++){
+    console.log(nums[i],maxCurrent,"CHECK_FOR")
+
+    if(nums[i] > maxCurrent+nums[i]){
+      left = i;
+      maxCurrent =nums[i];
+    }else{
+      maxCurrent += nums[i];
+    }
+
+    if(maxCurrent > maxGlobal){
+      maxGlobal = maxCurrent;
+      right = i;
+    }
+  }
+  console.log(maxGlobal,"maxGlobal")
+  return nums.slice(left,right+1)
+
+  
+}
+
+// console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]),"NUMS__NUMSS")
+
+function reverse(s) {
+  let arr = s.split(' '); // Convert string to array
+  console.log(arr,"ARRAYYY")
+  let i = 0;
+  let j = arr.length - 1;
+
+  while (i < j) {
+    if(arr[i].trim?.length && arr[j]?.trim().length){
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    i++;
+    j--;
+  }
+
+  const check = arr.join(' ').trim();
+
+  console.log(check,"checkcheck")
+
+  return check; // Convert array back to string
+}
+
+console.log(reverse("  hello   world  "),"REVERSE")
