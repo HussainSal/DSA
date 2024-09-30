@@ -20,6 +20,7 @@ Step 1 :- Reverse the entire Array by calling reversal function
 
 Step 2 :- reverse only the actual array, which is not suppose to be reversed i.e 0 to k-1,
 
+dummy change
 Step 3 :- reverse the part that should have been reversed.
 */
 
@@ -138,7 +139,7 @@ Output : 4
 Explanation: The sub-array is {5, 2, 7, 1}.
 
 
-
+kadanes algorithm
 
 */
 
@@ -147,6 +148,7 @@ function longestSubarray(nums, k) {
     let tempLength=0 ;
     let maxLength=0;
     let sum = 0;
+    let start,end = 0;
     const hashMap = {};
 
 
@@ -164,7 +166,14 @@ function longestSubarray(nums, k) {
 
         // if remaining exist
         if(hashMap[remaining] != undefined){
+            // This will be the length of K, because :- Total - remaining = k 
             tempLength = i - hashMap[remaining];
+            // Now we can compare which one is greater, the initialized maxLength length or the tempLength
+
+            if(tempLength > maxLength){
+                start= hashMap[remaining]+1;
+                end = i;
+            }
             maxLength = Math.max(maxLength,tempLength); 
         }
 
@@ -175,10 +184,46 @@ function longestSubarray(nums, k) {
 
     }
 
+    const check = nums.splice(start,end);
+    console.log(check,"CHECKKKK")
+
     return maxLength
   
 
   
   }
 
-//   console.log(longestSubarray([10, 5, 2, 7, 1, 9], 15))
+
+  /*
+  Rearrangement :-  Rearrange Array Elements by Sign
+
+1.Every consecutive pair of integers have opposite signs.
+2.For all integers with the same sign, the order in which they were present in nums is preserved.
+3.The rearranged array begins with a positive integer.
+
+Input: nums = [3,1,-2,-5,2,-4]
+Output: [3,-2,1,-5,2,-4]
+  */
+
+  function rearrangeBySign(nums){
+    let result = [];
+    let posIndex =0;
+    let negIndex =1;
+
+    for(let i =0; i < nums.length; i++){
+        if(nums[i] > 0){
+            result[posIndex] = nums[i];
+            posIndex += 2;
+        }else{
+            result[negIndex] = nums[i];
+            negIndex +=2
+        }
+    }
+
+    return result
+    
+  }
+
+  console.log(rearrangeBySign([3,1,-2,-5,2,-4], 15),"RESULT_TODAY")
+
+
