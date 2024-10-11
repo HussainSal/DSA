@@ -113,9 +113,6 @@ function findFirstAndLast (nums, target){
 }
 
 // console.log(findFirstAndLast([2,2],2),"FIRST_AND_LAST")
-
-
-
 /*
   33. Search in Rotated Sorted Array [IMP]
   Example 1:
@@ -125,8 +122,6 @@ function findFirstAndLast (nums, target){
 
   l = 0 , r = 6 , mid = 3 , val = 7.
   check if output is in the range from left to mid or mid to left. and then if not present in the range then eliminate that range
-
-
 
 Example 2:
 
@@ -140,29 +135,35 @@ Output: -1
 
 Approach :- 
 
-
-
 */
 
-// http://127.0.0.1:5500/index.html
+
 function searchInRotatedArray (nums,target){
-
   let left = 0;
-  let right = nums.length -1;
-  let mid;
-  while(left < right){
-    mid = Math.floor((left+right)/2);
+  let right = nums.length-1;
+  
+  while(left <= right){
+    let mid = Math.floor((left+right)/2);
+    console.log(`MID:= ${mid}, LEFT:= ${left}, RIGHT:= ${right}`)
 
-    if(nums[mid] == target){
-      return mid
-    }else if(target < nums[left] && target < nums[mid]){
-      left = mid+1
+    // if target matches mid
+    if(nums[mid] == target) return mid;
+    if(nums[left] <= nums[mid]){
+      if(target >= nums[left] && target < nums[mid]){
+          right = mid-1
+      }else{
+        left = mid+1
+      }
     }else{
-      right = mid -1
+    if(nums[mid] < target && target <= nums[right] ){
+          left = mid+1
+    }else{
+      right = mid-1
     }
-  }
+    }
 
+  }
   return -1
 }
 
-console.log(searchInRotatedArray([4,5,6,7,0,1,2],0),"SEARCH_IN_ROTATEDARRAY")
+console.log(searchInRotatedArray([3,1],1),"SEARCH_IN_ROTATEDARRAY")
