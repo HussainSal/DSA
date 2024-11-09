@@ -187,4 +187,48 @@ function maxVowels(s, k) {
     return maxVowels; // Return the maximum number of vowels found in any substring of length k
 }
 
-console.log(maxVowels("abciiidef",3),"SOLUTIOn")
+// console.log(maxVowels("abciiidef",3),"SOLUTIOn")
+
+
+/* 
+ Probelm :- 1004. Max Consecutive Ones III
+ Example 1:
+
+Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Output: 6
+Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+Example 2:
+
+Input: nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3
+Output: 10
+Explanation: [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined. 
+
+*/
+
+function longestOnes(nums,k){
+    let consOnes = 0;
+    let maxOnes =0;
+
+    for(let i =0; i < nums.length; i++){
+
+        if(nums[i] == 1){
+            consOnes ++
+
+            if(consOnes > maxOnes){
+                maxOnes = consOnes
+            }
+        }else{
+            consOnes = 0
+        }
+        
+    }
+
+    console.log(maxOnes,"MAXONES")
+    return maxOnes + k
+
+}
+
+
+console.log(longestOnes( [1,1,1,0,0,0,1,1,1,1,0],2),"CHECKINGGGG")
