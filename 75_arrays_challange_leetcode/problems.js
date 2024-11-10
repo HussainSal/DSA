@@ -295,7 +295,46 @@ function longestOnes(nums, k) {
   }
   
 
-console.log(
-  longestOnes([1,1,1,0,0,0,1,1,1,1,0],2),
-  "CHECKINGGGG"
-);
+/*
+2215. Find the Difference of Two Arrays
+Input: nums1 = [1,2,3], nums2 = [2,4,6]
+Output: [[1,3],[4,6]]
+*/
+
+function findDifference (nums1,nums2){
+
+    let hashMap = {}
+    let hashMap2 = {}
+
+
+    for(let i = 0; i < nums1.length; i++){
+        hashMap[nums1[i]] = (hashMap[nums1[i]] || 0) +1;
+    }
+    
+    
+    for(let i = 0; i < nums2.length; i++){
+        hashMap2[nums2[i]] = (hashMap2[nums2[i]] || 0) +1;
+    }
+    
+
+
+    let arr1 = []
+    let arr2 = []
+
+    for(let key in hashMap){        
+        if(!hashMap2[key] ){
+            arr1.push(Number(key))
+        }
+    }
+
+    for(let key in hashMap2){        
+        if(!hashMap[key] ){
+            arr2.push(Number(key))
+        }
+    }
+
+    return [arr1,arr2]
+
+}
+
+console.log(findDifference([1,2,3],[2,4,6]),"DIFFRENCE");
