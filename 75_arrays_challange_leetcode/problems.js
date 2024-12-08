@@ -269,31 +269,30 @@ maxLength remains 9 since `right - left + 1
 
 */
 function longestOnes(nums, k) {
-    let left = 0;
-    let maxLength = 0;
-    let zeroCount = 0;
-  
-    for (let right = 0; right < nums.length; right++) {
-      // If the current element is 0, increment zeroCount
-      if (nums[right] === 0) {
-        zeroCount++;
-      }
-  
-      // If zeroCount exceeds k, shrink the window from the left
-      while (zeroCount > k) {
-        if (nums[left] === 0) {
-          zeroCount--;
-        }
-        left++;
-      }
-  
-      // Update maxLength with the current window size
-      maxLength = Math.max(maxLength, right - left + 1);
+  let left = 0;
+  let maxLength = 0;
+  let zeroCount = 0;
+
+  for (let right = 0; right < nums.length; right++) {
+    // If the current element is 0, increment zeroCount
+    if (nums[right] === 0) {
+      zeroCount++;
     }
-  
-    return maxLength;
+
+    // If zeroCount exceeds k, shrink the window from the left
+    while (zeroCount > k) {
+      if (nums[left] === 0) {
+        zeroCount--;
+      }
+      left++;
+    }
+
+    // Update maxLength with the current window size
+    maxLength = Math.max(maxLength, right - left + 1);
   }
-  
+
+  return maxLength;
+}
 
 /*
 2215. Find the Difference of Two Arrays
@@ -301,40 +300,125 @@ Input: nums1 = [1,2,3], nums2 = [2,4,6]
 Output: [[1,3],[4,6]]
 */
 
-function findDifference (nums1,nums2){
+function findDifference(nums1, nums2) {
+  let hashMap = {};
+  let hashMap2 = {};
 
-    let hashMap = {}
-    let hashMap2 = {}
+  for (let i = 0; i < nums1.length; i++) {
+    hashMap[nums1[i]] = (hashMap[nums1[i]] || 0) + 1;
+  }
 
+  for (let i = 0; i < nums2.length; i++) {
+    hashMap2[nums2[i]] = (hashMap2[nums2[i]] || 0) + 1;
+  }
 
-    for(let i = 0; i < nums1.length; i++){
-        hashMap[nums1[i]] = (hashMap[nums1[i]] || 0) +1;
+  let arr1 = [];
+  let arr2 = [];
+
+  for (let key in hashMap) {
+    if (!hashMap2[key]) {
+      arr1.push(Number(key));
     }
-    
-    
-    for(let i = 0; i < nums2.length; i++){
-        hashMap2[nums2[i]] = (hashMap2[nums2[i]] || 0) +1;
+  }
+
+  for (let key in hashMap2) {
+    if (!hashMap[key]) {
+      arr2.push(Number(key));
     }
-    
+  }
 
-
-    let arr1 = []
-    let arr2 = []
-
-    for(let key in hashMap){        
-        if(!hashMap2[key] ){
-            arr1.push(Number(key))
-        }
-    }
-
-    for(let key in hashMap2){        
-        if(!hashMap[key] ){
-            arr2.push(Number(key))
-        }
-    }
-
-    return [arr1,arr2]
-
+  return [arr1, arr2];
 }
 
-console.log(findDifference([1,2,3],[2,4,6]),"DIFFRENCE");
+// console.log(findDifference([1, 2, 3], [2, 4, 6]), "DIFFRENCE");
+
+// const gcdOfStrings = (str1, str2) => {
+//   console.log(str1, str2, "STRING_HASSSS");
+
+//   let fq1 = {};
+//   let fq2 = {};
+
+//   for (let key of str1) {
+//     fq1[key] = (fq1[key] || 0) + 1;
+//   }
+
+//   for (let key of str2) {
+//     fq2[key] = (fq2[key] || 0) + 1;
+//   }
+
+//   let str = [];
+//   for (let key in fq1) {
+//     if (key in fq2) {
+//       str.push(key);
+//     } else {
+//       return "";
+//     }
+//   }
+
+//   console.log(fq1, fq2, "FREQUENCY", str);
+
+//   return str?.join("");
+
+// };
+
+// console.log(
+//   gcdOfStrings(
+//     "TAUXXTAUXXTAUXXTAUXXTAUXX",
+//     "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX"
+//   ),
+//   "COMMON_STRING"
+// );
+
+const kidsWithCandies = (candies, extraCandies) => {
+  const result = [];
+  let max = 0;
+
+  for (let key of candies) {
+    if (key > max) {
+      max = key;
+    }
+  }
+
+  for (let key of candies) {
+    if (key + extraCandies >= max) {
+      result.push(true);
+    } else {
+      result.push(false);
+    }
+  }
+
+  return result;
+};
+
+/*
+
+Example 1:
+
+605. Can Place Flowers
+
+Input: flowerbed = [1,0,0,0,1], n = 1
+Output: true
+Example 2:
+
+Input: flowerbed = [1,0,0,0,1], n = 2
+Output: false
+*/
+
+// console.log(kidsWithCandies([2, 3, 5, 1, 3], 3));
+const canPlaceFlowers = (flowerbed, n) => {
+  console.log(flowerbed, n, "TEST_HERE");
+
+  let counter = 0;
+
+  while (counter <= flowerbed.length - 1) {
+    let current = flowerbed[counter];
+    if (current == 0) {
+      n--;
+    }
+    counter = counter + 2;
+  }
+
+  return n == 0 ? true : false;
+};
+
+console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));
