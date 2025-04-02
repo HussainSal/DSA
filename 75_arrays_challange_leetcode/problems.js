@@ -421,4 +421,44 @@ const canPlaceFlowers = (flowerbed, n) => {
   return n == 0 ? true : false;
 };
 
-console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));
+// console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));
+
+/*
+["a","a","b","b","c","c","c"]
+*/
+
+function compress(chars) {
+  console.log(chars, "COMPRESS");
+
+  let fq1 = {};
+
+  for (let key of chars) {
+    fq1[key] = (fq1[key] || 0) + 1;
+  }
+
+  for (let i = 0; i < chars.length; i++) {}
+}
+
+// console.log(compress(["a", "a", "b", "b", "c", "c", "c"]));
+
+/*
+  2352. Equal Row and Column Pairs
+  Input: grid = [[3,2,1],[1,7,6],[2,7,7]]
+  Output: 1
+  Explanation: There is 1 equal row and column pair:
+  - (Row 2, Column 1): [2,7,7]
+
+*/
+
+function equalPairs(grid) {
+  console.log(grid, "GRIDDDD");
+}
+
+console.log(
+  equalPairs([
+    [3, 2, 1],
+    [1, 7, 6],
+    [2, 7, 7],
+  ]),
+  "EQUAL_PAIRS"
+);
